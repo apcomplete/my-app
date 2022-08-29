@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type Player = {
   id: number;
@@ -18,9 +18,9 @@ type Team = {
 
 const player: Player = {
   id: 1,
-  firstName: 'John',
-  lastName: 'Doe',
-  dob: '06/26/1987',
+  firstName: "John",
+  lastName: "Doe",
+  dob: "06/26/1987",
 };
 
 const team: Team = {
@@ -28,32 +28,42 @@ const team: Team = {
   players: [
     {
       id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-    }
-  ]
+      firstName: "John",
+      lastName: "Doe",
+    },
+  ],
 };
 
 const getPlayer = async (id: number): Promise<Player> => {
-  const response = await fetch(`/api/v1/players/${id}`, { method: 'get' });
+  const response = await fetch(`/api/v1/players/${id}`, { method: "get" });
   return await response.json();
 };
 
 const getTeam = async (id: number): Promise<Team> => {
-  const response = await fetch(`/api/v1/teams/${id}`, { method: 'get' });
+  const response = await fetch(`/api/v1/teams/${id}`, { method: "get" });
   return await response.json();
 };
 
-const getNominalPlayerData = async({ id }: Player): Promise<object> => {
-  const response = await fetch(`/api/v1/players/${id}/stats`, { method: 'get' });
+const getNominalPlayerData = async ({ id }: Player): Promise<object> => {
+  const response = await fetch(`/api/v1/players/${id}/stats`, {
+    method: "get",
+  });
   return await response.json();
 };
 
 getNominalPlayerData(player);
+// @ts-expect-error Argument of type '{ id: number; firstName: string; lastName: string; }' is not assignable to parameter of type 'Player'.
+// Property 'dob' is missing in type '{ id: number; firstName: string; lastName: string; }' but required in type 'Player'.
 getNominalPlayerData(team.players[0]);
 
-const getStructuralPlayerData = async({ id }: { id: number }): Promise<object> => {
-  const response = await fetch(`/api/v1/players/${id}/stats`, { method: 'get' });
+const getStructuralPlayerData = async ({
+  id,
+}: {
+  id: number;
+}): Promise<object> => {
+  const response = await fetch(`/api/v1/players/${id}/stats`, {
+    method: "get",
+  });
   return await response.json();
 };
 

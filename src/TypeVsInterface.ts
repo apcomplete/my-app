@@ -26,3 +26,5 @@ class Pointer implements ThreeDeePointInterface {
     this.z = 1;
   }
 }
+
+export default Pointer;
